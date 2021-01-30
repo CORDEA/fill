@@ -23,6 +23,12 @@ std::vector<fill::alias> read_json(const char *name) {
     return {};
 }
 
+void write_json(const char *name, const std::vector<fill::alias> *aliases) {
+    std::ofstream file(name);
+    json j = *aliases;
+    file << std::setw(4) << j << std::endl;
+}
+
 void register_cmd(char *cmd, char *pattern) {
 }
 
