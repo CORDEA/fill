@@ -1,7 +1,29 @@
 #include <iostream>
+#include <fstream>
+#include "alias.h"
+
+std::string read_file(const char *name) {
+    std::string line;
+    std::string lines;
+    std::ifstream file(name);
+    if (file.is_open()) {
+        while (std::getline(file, line)) {
+            lines += line;
+        }
+        file.close();
+    }
+    return lines;
+}
+
+std::vector<fill::alias> read_json(const char *name) {
+    auto l = read_file(name);
+    if (l.length() > 0) {
+        return json::parse(l);
+    }
+    return {};
+}
 
 void register_cmd(char *cmd, char *pattern) {
-
 }
 
 int try_call(char *cmd, char *query) {
