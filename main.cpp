@@ -2,14 +2,16 @@
 #include <fstream>
 #include "alias.h"
 
+using namespace std;
+
 const char *filename = "commands.json";
 
-std::string read_file(const char *name) {
-    std::string line;
-    std::string lines;
-    std::ifstream file(name);
+string read_file(const char *name) {
+    string line;
+    string lines;
+    ifstream file(name);
     if (file.is_open()) {
-        while (std::getline(file, line)) {
+        while (getline(file, line)) {
             lines += line;
         }
         file.close();
@@ -17,7 +19,7 @@ std::string read_file(const char *name) {
     return lines;
 }
 
-std::vector<fill::alias> read_json(const char *name) {
+vector<fill::alias> read_json(const char *name) {
     auto l = read_file(name);
     if (l.length() > 0) {
         return json::parse(l);
@@ -25,10 +27,10 @@ std::vector<fill::alias> read_json(const char *name) {
     return {};
 }
 
-void write_json(const char *name, const std::vector<fill::alias> *aliases) {
-    std::ofstream file(name);
+void write_json(const char *name, const vector<fill::alias> *aliases) {
+    ofstream file(name);
     json j = *aliases;
-    file << std::setw(4) << j << std::endl;
+    file << setw(4) << j << endl;
 }
 
 void register_cmd(const char *cmd, const char *pattern) {
