@@ -31,7 +31,11 @@ void write_json(const char *name, const std::vector<fill::alias> *aliases) {
     file << std::setw(4) << j << std::endl;
 }
 
-void register_cmd(char *cmd, char *pattern) {
+void register_cmd(const char *cmd, const char *pattern) {
+    auto aliases = read_json(filename);
+    auto alias = fill::alias(cmd, pattern);
+    aliases.push_back(alias);
+    write_json(filename, &aliases);
 }
 
 int try_call(const char *cmd, const char *query) {
