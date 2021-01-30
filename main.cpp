@@ -2,6 +2,8 @@
 #include <fstream>
 #include "alias.h"
 
+const char *filename = "commands.json";
+
 std::string read_file(const char *name) {
     std::string line;
     std::string lines;
@@ -32,9 +34,16 @@ void write_json(const char *name, const std::vector<fill::alias> *aliases) {
 void register_cmd(char *cmd, char *pattern) {
 }
 
-int try_call(char *cmd, char *query) {
-
-    return 0;
+int try_call(const char *cmd, const char *query) {
+    auto aliases = read_json(filename);
+    json j = aliases;
+    for (auto &alias : aliases) {
+        if (alias.name == cmd) {
+            // TODO
+            return 0;
+        }
+    }
+    return 1;
 }
 
 int main(int argc, char *argv[]) {
